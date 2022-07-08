@@ -100,3 +100,12 @@ library(nycflights13)
 flights <- nycflights13::flights
 
 rm(list = ls())
+
+
+
+
+# Parei aqui
+
+# https://jonnyphillips.github.io/Ciencia_de_Dados/introducao.html
+
+# Exercício 2: Aprender juntos
