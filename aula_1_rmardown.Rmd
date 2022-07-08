@@ -1,0 +1,32 @@
+---
+title: "Aula_1"
+author: "Juciane Pereira"
+date: '2022-07-08'
+output: html_document
+---
+
+Estou acompanhando esta disciplina para desenvolver habilidades computacionais que me possibilitem ser uma cientista social autônoma, dentro do campo da sociologia digital no Brasil.
+
+```{r}
+calculo <- 487*12
+```
+
+
+```{r}
+raio <- 20
+
+area <- pi * raio^2
+
+area
+
+```
+
+# Título 1 
+
+## Subtítulo
+
+*palavra em itálico*
+
+**palavra em negrito**
+
+[link_aula_1_video](https://drive.google.com/file/d/1t_-k0zOufuHFnstPlIoWiOfcIEC5bu-A/view)

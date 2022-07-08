@@ -32,3 +32,66 @@
 # nada disto terá sentido, se ao final do processo
 # não for possível despreender análises a partir 
 # da base de dados extraída.
+
+
+
+# Na análise --------------------------------------------------------------
+
+# comumente, nossos objetivos podem ser
+# criar gráficos, tabelas e relatórios 
+# a partir do código.
+
+
+
+# Rmarkdown ---------------------------------------------------------------
+
+# rmarkdown é o output ideal para a análise empreendida dentro do R
+# nos arquivos rmardown é possível combinar textos explicativos
+# com código de programação e salvar este conteúdo em um output em formato
+# html, word, pdf, ideal para relatórios ou artigos. 
+
+# No rmardown há dois campos, o campo para o texto normal e o campo
+# chunck para o código/tabelas/gráficos - fundo cinza
+
+
+# Formatação de texto no Rmarkdown ----------------------------------------
+
+
+
+*Itálico*
+  
+  **Bold**
+  
+  # Cabeçalho de seção
+  
+  
+  ## Sub-cabeçalho
+  `
+
+### Sub-Sub-cabeçalho
+
+# [link](http://www.google.com)
+# 
+# * Bullets
+# [quatro espaços]    * Sub-Bullets
+# 
+# 1. Lista numerada
+# [quatro espaços]    1. Sub-Lista numerada
+# 
+# Itálico
+# 
+# Bold
+# Cabeçalho de seção
+# Sub-cabeçalho
+# Sub-Sub-cabeçalho
+# 
+# link
+# 
+# Bullets
+# Sub-Bullets
+# 
+# Lista numerada
+
+
+
+
