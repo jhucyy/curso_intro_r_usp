@@ -93,5 +93,10 @@
 # Lista numerada
 
 
+# Explorando pacotes ------------------------------------------------------
 
+library(nycflights13)
 
+flights <- nycflights13::flights
+
+rm(list = ls())

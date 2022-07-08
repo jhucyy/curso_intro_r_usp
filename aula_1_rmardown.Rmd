@@ -3,23 +3,43 @@ title: "Aula_1"
 author: "Juciane Pereira"
 date: '2022-07-08'
 output: html_document
+df_print: paged
 ---
 
 Estou acompanhando esta disciplina para desenvolver habilidades computacionais que me possibilitem ser uma cientista social autônoma, dentro do campo da sociologia digital no Brasil.
 
+## Novo parágrafo
+
+Parágrafo para escrever coisas aleatórias.
+
+
 ```{r}
-calculo <- 487*12
+library("tidyverse")
+library("nycflights13")
+```
+
+
+
+```{r}
+siglas_aeroportos <- c("NWR","JFK","LGA")
+nomes_aeroportos <- c("Newark","John F Kennedy","Laguardia")
+tabela_aeroportos <- tibble(Sigla = siglas_aeroportos, Nome = nomes_aeroportos)
+
+
+```
+
+
+
+```{r}
+tabela_aeroportos
 ```
 
 
 ```{r}
-raio <- 20
 
-area <- pi * raio^2
-
-area
-
+flights
 ```
+
 
 # Título 1 
 
