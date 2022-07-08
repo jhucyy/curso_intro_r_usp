@@ -2,7 +2,9 @@
 title: "Aula_1"
 author: "Juciane Pereira"
 date: '2022-07-08'
-output: html_document
+output:
+  word_document: default
+  html_document: default
 df_print: paged
 ---
 
@@ -13,9 +15,9 @@ Estou acompanhando esta disciplina para desenvolver habilidades computacionais q
 Parágrafo para escrever coisas aleatórias.
 
 
-```{r}
-library("tidyverse")
-library("nycflights13")
+```{r library, include=FALSE}
+library(tidyverse)
+library(nycflights13)
 ```
 
 
