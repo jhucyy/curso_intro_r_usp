@@ -1,0 +1,60 @@
+---
+title: "Exercícios_1"
+author: "Juciane Pereira"
+date: '2022-07-08'
+output:
+  word_document: default
+  html_document: default
+---
+
+
+```{r include=FALSE}
+library(tidyverse)
+library(dslabs)
+gapmider <- dslabs::gapminder
+
+```
+
+## Banco de dados gpmider
+
+Reúne estatísticas resumidas para todos os países do mundo desde 1960.
+
+```{r include=FALSE}
+gapmider
+```
+
+## Informações da base de dados
+
+### Descrição:
+
+Número de linhas:
+
+```{r}
+nrow(gapmider)
+```
+
+
+Número de colunas:
+
+```{r}
+ncol(gapmider)
+```
+
+
+Classficação da base:
+
+```{r}
+class(gapmider)
+```
+
+
+Resumo de todas as info:
+
+```{r}
+glimpse(gapmider)
+```
+
+
+
+
+
