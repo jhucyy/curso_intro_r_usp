@@ -1,0 +1,26 @@
+---
+title: "Revisão"
+author: "Juciane Pereira"
+date: '2022-07-15'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Arquivo de Revisão 
+
+Este arquivo tem o propósito de remorar as operações realizadas anteriormente.
+
+```{r include=FALSE}
+library(tidyverse)
+library(nycflights13)
+library(tinytex)
+```
+
+
+# Dataset flight
+
+```{r}
+flights
+```
+
