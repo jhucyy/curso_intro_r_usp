@@ -149,4 +149,38 @@ flights %>%
 
 
 
+# Summarise ---------------------------------------------------------------
 
+by_day <- flights %>% 
+  group_by(year, month, day)
+
+
+summarise(by_day, delay = mean(dep_delay, na.rm = T))
+
+
+
+# Group_by ----------------------------------------------------------------
+
+flights %>% 
+  group_by(dest)
+
+
+# distance
+
+View(flights)
+
+
+flights %>% 
+  summarise(distance_mean = mean(distance, na.rm = T))
+
+
+flights %>% 
+  summarise(average_delay = mean(dep_delay, na.rm = T))
+
+
+count(flights)
+
+
+# Parei aqui
+# 5.6.2 Missing values
+# https://r4ds.had.co.nz/transform.html
