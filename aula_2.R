@@ -267,3 +267,41 @@ parse_number("$100")
 parse_number("10%")
 
 parse_number("Maria ganhou 10 reais")
+
+
+
+
+# Parsing strings ---------------------------------------------------------
+
+# UTF-8 é o padrão de encoding mais universal, inclusive é o padrão de 
+# encoding que suporta o português-br
+
+# entretanto, se algum dia você tiver o azar de se bater com uma codificação
+# em uma base de dados que seja anterior a implementação do padrão UTF-8, nesse
+# caso será preciso especificar o encoding dos dados, com o argumento
+# locale = locale(encoding = "Sistema")
+
+x1 <- "El Ni\xf1o was particularly bad this year"
+
+parse_character(x1)
+
+parse_character(x1, locale = locale(encoding = "Latin1"))
+
+
+# Como saber qual é o padrão de encoding correto? Caso não esteja 
+# na documentação, a função guess_enconding auxilia nesse processo.
+# É esperado algumas tentativas até encontrar o padrão correto.
+
+guess_encoding(charToRaw(x1))
+
+
+parse_character(x1, locale = locale(encoding = "ISO-8859-1"))
+
+
+# Segundo exemplo:
+
+x2 <- "\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd"
+
+parse_character(x2, locale = locale(encoding = "KOI8-R"))
+
+guess_encoding(charToRaw(x2))
