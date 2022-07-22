@@ -181,6 +181,39 @@ flights %>%
 count(flights)
 
 
-# Parei aqui
-# 5.6.2 Missing values
-# https://r4ds.had.co.nz/transform.html
+
+# Continuação 5.6.2 -------------------------------------------------------
+
+library(tidyverse)
+library(nycflights13)
+
+
+
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay, na.rm = T))
+
+
+
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay) & !is.na(arr_delay))
+
+
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarise(delay = mean(arr_delay))
+
+
+ggplot(data = delays, mapping = aes(x = delay)) +
+  geom_freqpoly(binwidth = 10)
+
+
+
+
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarise(delay = mean(arr_delay), n = n())
+
+
+ggplot(data = delays, mapping = aes(x = n, y = delay))+
+  geom_point(alpha = 1/10)
