@@ -305,3 +305,27 @@ x2 <- "\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd"
 parse_character(x2, locale = locale(encoding = "KOI8-R"))
 
 guess_encoding(charToRaw(x2))
+
+
+# Parse factor
+
+frutas <- c("abacaxi", "melão", "melancia")
+
+parse_factor(c("abacaxi", "melão"), levels = frutas)
+
+
+
+# Parsing dates and times -------------------------------------------------
+
+
+parse_date("1997-08-18")
+
+library(hms)
+
+install.packages("hms")
+
+parse_time("1:56 am")
+
+
+date_names_langs()
+
