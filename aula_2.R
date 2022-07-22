@@ -329,3 +329,74 @@ parse_time("1:56 am")
 
 date_names_langs()
 
+
+
+# Tidy data  --------------------------------------------------------------
+
+# tidyr é um pacote presente no metapacote tidyverse
+
+library(tidyr)
+
+# O processo de tornar uma base de dados "tidy" ou seja, organizada 
+# conforme os princípios tidy condizente com a manipulação dos dados a partir
+# do tidyverse, consiste em seguir este mantra
+
+# em uma base ou tabela, cada linha (row) é uma observação
+# e cada coluna uma variável. 
+# cada valor deve ter sua própria coluna. 
+
+
+# arrumando os datasets 
+
+# Compute the rate for table2, and table4a + table4b. 
+# You will need to perform four operations:
+library(tidyverse)
+table2
+
+
+?pivot_wider
+
+pivot_wider(table2, names_from = type, values_from = count) %>% 
+  mutate(rate = cases / population * 10000)
+
+
+table4a  
+
+?pivot_longer
+
+
+table4a <- pivot_longer(table4a, cols = `1999`:`2000`, names_to = "year", 
+             values_to = "cases")
+
+table4b <- pivot_longer(table4b, cols = `1999`:`2000`, names_to = "year",
+             values_to = "cases")
+
+
+table4b 
+
+left_join(table4a, table4b) %>% 
+  mutate(rate = cases/population * 10000)
+
+
+# separate
+
+# separar variáveis que estejam juntas em uma mesma coluna:
+
+table3 %>% 
+  separate(rate, into = c("cases", "population"))
+
+# especificando o separador
+
+table3 %>% 
+  separate(rate, into = c("rate", "population"), sep = "/",
+           convert = T)
+
+
+table3 %>% 
+  separate(year, into = c("century", "year"), sep = 2)
+
+
+# unite, juntar duas colunas que foram separadas
+
+table5 %>% 
+  unite(new, century, year, sep = "")
