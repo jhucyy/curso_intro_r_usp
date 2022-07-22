@@ -217,3 +217,53 @@ delays <- not_cancelled %>%
 
 ggplot(data = delays, mapping = aes(x = n, y = delay))+
   geom_point(alpha = 1/10)
+
+
+
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(first_dp = first(dep_time),
+            last_dp = last(dep_time))
+
+
+
+library(readr)
+
+?read_csv
+
+
+# Parsing a vector  -------------------------------------------------------
+
+parse_integer(c("1", "4", "5" , "a"), na = "a")
+
+parse_date(c("2020-02-14", "2022-05-21"))
+
+
+# utiliza-se o argumento locale e decimal mark para explicar qual o 
+# elemento que separa o número inteiro do resto dos números, nesse 
+# caso o padrão é o "." , mas conforme a descrição, o que está separando
+# é a vírgula, então o argumento serve para "traduzir" está informação. 
+
+# 1 problema a ser tratado no processo de parsing a number
+# os números são descritos de formas diferentes ao redor do mundo, cada 
+# país tem um padrão, assim, em alguns países a vírgula "," é utilizada 
+# para separar os números inteiros, em outros é o ponto ".", a configuração
+# do R é baseada no inglês americano, portanto, a opção mais simples é 
+# adequar a descrição número nesse padrão, com o ponto, usando o argumento
+# locale e decimal_mark, conforme no exemplo:
+
+parse_double("1,25", locale = locale(decimal_mark = ","))
+
+
+# parse_number, para tratar do segundo problema,
+# os números estão, geralmente, relacionados com símbolos que especificam
+# o seu contexto, como % e $
+
+# Assim parse_number ignora os símbolos que aparecem antes ou depois dos
+# números, e também serve para extrair números dentro de textos
+
+parse_number("$100")
+
+parse_number("10%")
+
+parse_number("Maria ganhou 10 reais")
