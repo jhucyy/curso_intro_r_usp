@@ -1,0 +1,119 @@
+---
+title: "Manipulação de dados"
+author: "Juciane Pereira"
+date: '2022-07-26'
+output: html_document
+---
+```{r include=FALSE}
+library(tidyverse)
+library(tidylog)
+```
+# Lodding a dataset no R:
+```{r}
+library(nycflights13)
+names(flights)
+```
+# Renomeando uma coluna:
+```{r}
+flights <- flights %>% 
+  rename("departure_time" = dep_time)
+flights
+```
+
+# Selecionando colunas com o verbo select():
+```{r}
+flights %>% 
+  select(day, year, month)
+```
+# Alterando os valores das colunas ou criando novas variáveis com mutate()
+
+```{r}
+flights %>% 
+  mutate(dep_delay = dep_delay*60)
+```
+# Usando funções dentro do mutate()
+ tollower altera a fonte de maiuscula para minúscula:
+```{r}
+flights %>% 
+  mutate(origin = tolower(origin)) %>% 
+  select(origin)
+
+```
+# Limitar a análise apenas para uma linha do banco de dados com o verbo slice:
+
+```{r}
+flights %>% 
+  slice(1:5)
+```
+
+# Selecionar linha não desejada:
+
+```{r}
+flights %>% slice(-1)
+
+```
+# Selecionar apenas os voos do mês 6:
+
+```{r}
+flights_junho <- flights %>% 
+  filter(month == 6)
+```
+# Operadores relacionais:
+
+Servem para fazer comparações entre variáveis ou valores, funciona com variáveis númericas e com caracteres.
+
+"==" igual;
+
+"!=" diferente;
+
+">" maior que;
+
+"<" menor que;
+
+">=" maior ou igual que;
+
+"<=" menor ou igual que;
+
+
+# Operadores lógicos:
+
+Utilizado para combinar critérios múltiplos em um mesmo filtro:
+
+"&" e;
+
+"|" ou;
+
+"!" não. 
+
+
+# Exemplos de operadores relacionais:
+
+```{r}
+flights %>% 
+  filter(month > 5) 
+```
+```{r}
+flights %>% 
+  filter(month == 3)
+```
+
+
+# Exemplos operadores lógicos:
+
+```{r}
+flights %>% 
+  filter(month == 6 & day == 1)
+```
+
+```{r}
+flights %>% 
+  filter(month == 7 | month == 8)
+```
+
+
+
+
+
+
+
+
