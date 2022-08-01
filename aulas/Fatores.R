@@ -63,3 +63,108 @@ gss_cat %>%
   coord_flip()+
   theme_classic()
 
+
+
+# fct_recode --------------------------------------------------------------
+
+# Enquanto fct_reorder serve para fazer o reordenamento de fatores, fct_recode
+# serve para mudar o valor dos fatores. 
+
+# ex:
+
+gss_cat %>%
+  mutate(partyid = fct_recode(partyid,  "Republican, strong"    = "Strong republican",
+                              "Republican, weak"      = "Not str republican",
+                              "Independent, near rep" = "Ind,near rep",
+                              "Independent, near dem" = "Ind,near dem",
+                              "Democrat, weak"        = "Not str democrat",
+                              "Democrat, strong"      = "Strong democrat")) %>% 
+  count(partyid)
+
+
+
+
+
+
+# fct_collapse ------------------------------------------------------------
+
+# Por outro lado, o verbo fcr_collpse, serve para colpsar, ou seja, agrupar
+# vários valores em um mesmo denominador comum. 
+
+# ex:
+
+gss_cat %>%
+  mutate(partyid = fct_collapse(partyid,
+                                other = c("No answer", "Don't know", "Other party"),
+                                rep = c("Strong republican", "Not str republican"),
+                                ind = c("Ind,near rep", "Independent", "Ind,near dem"),
+                                dem = c("Not str democrat", "Strong democrat")
+  )) %>%
+  count(partyid)
+
+
+
+# fct_lump ----------------------------------------------------------------
+
+
+gss_cat %>% 
+  mutate(relig = fct_lump(relig)) %>% 
+  count(relig)
+
+
+
+gss_cat %>% 
+  group_by(relig) %>% 
+  count(relig)
+
+
+gss_cat %>% 
+  mutate(relig = fct_lump(relig, n = 10)) %>% 
+  count(relig)
+
+
+# fct_lump faz o mesmo que a função group_by. A diferença é que você
+# pode escolher quantos grupos quer que seja colpsado com o parâmetro 
+# n = x
+
+
+
+# Exercício ---------------------------------------------------------------
+
+# How have the proportions of people identifying as Democrat, 
+# Republican, and Independent changed over time?
+
+
+gss_cat %>% 
+  group_by(partyid) %>% 
+  count(partyid)
+
+
+parties_col <- gss_cat %>% 
+  mutate(partyid = fct_collapse(partyid, Other = c("No answer", "Don't know",
+                                                   "Other party"), 
+                                Republican = c("Strong republican", "Not str republican",
+                                               "Not str republican"),
+                                Independent = c("Ind,near rep", "Independent", 
+                                                "Ind,near dem"),
+                                Democrat = c("Not str democrat", "Strong democrat")))
+
+
+
+parties_col %>% 
+  ggplot(aes(x = partyid, y = year)) + 
+  geom_line()+
+  coord_polar()
+
+
+
+
+# 
+
+gss_cat %>% 
+  mutate(rincome = fct_lump(rincome)) %>% 
+  count(rincome)
+  
+
+
+
