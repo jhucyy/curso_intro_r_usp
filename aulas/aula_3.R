@@ -120,3 +120,6 @@ who_final <- who_2 %>%
   
 
 
+# Parei no capítulo 27
+# https://r4ds.had.co.nz/
+# depois vídeo 3 - Organizando e limpando
