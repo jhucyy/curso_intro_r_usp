@@ -1,0 +1,56 @@
+---
+title: "Untitled"
+author: "Juciane Pereira"
+date: '2022-08-04'
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+
+```{r}
+flights %>% 
+  mutate(dep_on_time = case_when(dep_time <= sched_dep_time ~ 1, dep_time > sched_dep_time ~ 0))
+```
+```{r}
+flights %>% 
+  mutate(dep_on_time = case_when(dep_time < sched_dep_time ~ 1, TRUE ~ 0))
+```
+```{r}
+flights %>% 
+  unite("Atalho", c(carrier, flight))
+```
+
+Criando coluna de data com unite:
+
+```{r}
+flights %>% 
+  unite("Data", c(day, month, year), sep = "/")
+```
+
+
+Ordenação:
+
+```{r}
+flights %>% 
+  arrange(-dep_delay) %>% 
+  top_n(2, dep_delay)
+```
+
+
+Fatores, é um tipo de dado poderoso, pois restringe as possibilidades de valores. 
+
+```{r}
+flights %>% 
+  mutate(origin = factor(origin, levels = c("EWR", "LGA", "JFK")))
+
+
+flights %>% 
+  mutate(month = factor(month, levels = 1:12, ordered = T))
+
+```
+
+
