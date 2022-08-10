@@ -1,0 +1,169 @@
+---
+title: "Desafio_01.1_SP"
+author: "Juciane Pereira"
+date: '2022-08-09'
+output: html_document
+---
+
+### Esse relatório visa a incluir uma série de análises correspondente a base de dados das eleições municipais do estado de São Paulo ocorrida no ano de 2012.
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+
+
+Subindo os dados:
+
+```{r, echo=F, message=FALSE}
+eleicao_sp_2012 <- read_delim("./votacao_nominal_2012/votacao_candidato_munzona_2012_SP.txt", delim = ";", locale = locale(encoding = "LATIN1"), col_names = c("DATA_GERACAO", "HORA_GERACAO", "ANO_ELEICAO", "NUM_TURNO", "DESCRICAO_ELEICAO", "SIGLA_UF", "SIGLA_UE", "CODIGO_MUNICIPIO", "NOME_MUNICIPIO", "NUMERO_ZONA", "CODIGO_CARGO", "NUMERO_CAND", "SQ_CANDIDATO", "NOME_CANDIDATO", "NOME_URNA_CANDIDATO", "DESCRICAO_CARGO", "COD_SIT_CAND_SUPERIOR", "DESC_SIT_CAND_SUPERIOR", "CODIGO_SIT_CANDIDATO", "DESC_SIT_CANDIDATO", "CODIGO_SIT_CAND_TOT", "DESC_SIT_CAND_TOT", "NUMERO_PARTIDO", "SIGLA_PARTIDO", "NOME_PARTIDO", "SEQUENCIAL_LEGENDA", "NOME_COLIGACAO", "COMPOSICAO_LEGENDA", "TOTAL_VOTOS"))
+
+glimpse(eleicao_sp_2012)
+
+```
+
+
+Selecionando as variáveis relevantes:
+
+
+```{r, echo=FALSE}
+eleicao_sp_2012_tidy <- eleicao_sp_2012 %>% 
+  select("ANO_ELEICAO", "NUM_TURNO", "SIGLA_UF", "CODIGO_MUNICIPIO", "NOME_MUNICIPIO", "NUMERO_ZONA", "NUMERO_CAND", "NOME_CANDIDATO", "NOME_URNA_CANDIDATO", "DESCRICAO_CARGO", "DESC_SIT_CANDIDATO", "DESC_SIT_CAND_TOT", "NUMERO_PARTIDO", "SIGLA_PARTIDO", "NOME_PARTIDO", "NOME_COLIGACAO", "COMPOSICAO_LEGENDA", "TOTAL_VOTOS")
+
+glimpse(eleicao_sp_2012_tidy)
+```
+
+
+
+Apenas as linhas com os resultados do primeiro turno da eleição:
+
+```{r, echo=FALSE}
+result_prim_turn <- eleicao_sp_2012_tidy %>% 
+  filter(NUM_TURNO == 1 & DESCRICAO_CARGO == "PREFEITO")
+
+glimpse(result_prim_turn)
+```
+
+
+
+Apenas os candidatos para prefeito que concorreram no primeiro turno:
+
+```{r, echo=FALSE}
+result_prim_turn %>% 
+  distinct(NOME_CANDIDATO) 
+```
+
+**R = Ao todo 2.026 concorreram no primeiro turno na eleição para prefeito em 2012 no estado de São Paulo**. 
+
+
+
+
+Renomeiar função DESC_SIT_CAND_TOT para RESTULADO:
+
+```{r, echo=FALSE}
+result_prim_turn <- result_prim_turn %>% 
+  rename("RESULTADO" = DESC_SIT_CAND_TOT)
+
+glimpse(result_prim_turn)
+```
+
+
+
+No banco de dados de prefeitos no primeiro turno gerado na questão anterior, filtre os dados para os candidatos que se candidataram com Nome de Urna igual ao seu Nome completo, e identifique os candidatos únicos de novo. No seu relatório, explique qual percentagem de todos os candidatos para prefeito no primeiro turno isso representa.
+
+
+```{r, echo=FALSE, message=FALSE}
+result_prim_turn %>% 
+  group_by(NOME_CANDIDATO) %>% 
+  filter(NOME_CANDIDATO == NOME_URNA_CANDIDATO)
+
+```
+**R = Candidatos com nome igual ao nome da urna  que concorreram ao cargo de prefeito = 289. Número total de pessoas que concorreram ao cargo de prefeito = 2.026**
+
+
+```{r}
+289 / 2026 * 100
+
+```
+
+**R = Cerca de 14% dos prefeitos concorrendo ao primeiro turno correspondem a candidatos que tem o nome real igual ao nome da urna.** 
+
+
+
+Quantos dos candidatos identificados em Q8 foram eleitos no primeiro turno?
+
+
+```{r, echo=FALSE, message=FALSE}
+result_prim_turn %>% 
+  filter(RESULTADO == "ELEITO")
+```
+
+
+**R = Desses candidatos a prefeito, 695 foram eleitos no primeiro turno.** 
+
+
+
+Voltando para os dados de todos os candidatos no primeiro turno, vamos focar a nossa análise no município de São Paulo (código do TSE 71072). Ordene os dados por número de votos e identifique qual é o candidato que recebeu o maior número de votos em uma zona eleitoral. Ou seja, entre todas as zonas e todos os candidatos, qual foi a zona que registrou maior número de votos para um candidato? Quem é este candidato e quantos votos ele recebeu nesta zona?
+
+
+```{r, echo=FALSE, message=FALSE}
+eleicao_sp_2012_tidy %>% 
+  filter(NUM_TURNO == 1 & CODIGO_MUNICIPIO == 71072) %>% 
+  group_by(NUMERO_ZONA) %>% 
+  arrange(desc(TOTAL_VOTOS))
+```
+
+
+**R = O Candidato a prefeito no município de São Paulo que em 2012 obteve mais votos foi José Serra do PSDB, zona 258, número total de votos = 84886.**
+
+
+
+Usando a sua própria classificação, crie uma nova variável que descreve a ideologia de cada partido no banco de dados do município de São Paulo nas três categorias ‘Esquerda’, ‘Direita’ e ‘Outro’.
+
+
+```{r, echo=FALSE}
+eleicao_sp_2012_tidy <-  eleicao_sp_2012_tidy %>% 
+  mutate(IDEOLOGIA = fct_collapse(SIGLA_PARTIDO, "ESQUERDA" = c("PC do B", "PCB", "PCO", "PSOL", "PSTU", "PT"), "DIREITA" = c("DEM", "PSDB", "PRB", "PSD", "PSC", "PMDB", "PRTB", "PP", "PHS", "PMN", "PSL", "PTN", "PTB", "PTC", "PT do B", "PPL", "PPS", "PRP", "PR", "PSDC"), "OUTRO" = c("PDT", "PSB", "PV")))
+
+glimpse(eleicao_sp_2012_tidy)
+  
+```
+
+
+Crie uma variável que indica se o candidato no município de São Paulo recebeu mais de 10.000 votos na zona.
+
+```{r, echo=FALSE, message=FALSE}
+eleicao_sp_2012_tidy %>% 
+  filter(CODIGO_MUNICIPIO == 71072) %>% 
+  group_by(NOME_CANDIDATO, NUMERO_ZONA) %>% 
+  mutate(CAND_C_M_10000 = TOTAL_VOTOS > 10000)
+```
+
+
+
+Voltando para os dados originais, filtre apenas os dados dos vereadores. Agora, imagine que não temos os dados do partido de cada candidato e queremos recuperar do NUMERO_CAND, em que os primeiros dois dígitos sempre refletem o número do partido do candidato. Divida a coluna NUMERO_CAND em duas para criar uma coluna de NUM_PARTIDO e outra de NUM_CAND_RESTANTE.
+
+
+```{r, echo=FALSE, message=FALSE}
+sep_exer <- eleicao_sp_2012_tidy %>% 
+  filter(DESCRICAO_CARGO == "VEREADOR") %>% 
+  separate(NUMERO_CAND, into = c("NUM_PARTIDO", "NUM_CAND_RESTANTE"), 2) 
+
+sep_exer
+```
+
+
+
+Agora, unifique as colunas NUM_PARTIDO e NUM_CAND_RESTANTE criado em Q9. O resultado deve ser igual à coluna original NUMERO_CAND.
+
+
+
+```{r, echo=FALSE}
+sep_exer %>% 
+  unite("NEW_NUM_CAND", c(NUM_PARTIDO, NUM_CAND_RESTANTE), sep = "")
+```
+
+
+
+
+
