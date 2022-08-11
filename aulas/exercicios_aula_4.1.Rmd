@@ -35,6 +35,21 @@ flights %>%
 
 ```
 
+3. Calcule o atraso médio (dep_delay) por aeroporto de origem (origin). Qual aeroporto tem o pior atraso?
+
+```{r, echo=FALSE, message=FALSE}
+delay <- flights %>% 
+  group_by(origin) %>% 
+  summarize(mean_delay = mean(dep_delay, na.rm = T)) %>% 
+  top_n(1, mean_delay)
+
+mean_delay <- delay %>% pull(mean_delay)
+delay
+
+```
+
+R = o aeroporto que tem o pior atraso é EWR `r mean_delay`
+
 
 
 
