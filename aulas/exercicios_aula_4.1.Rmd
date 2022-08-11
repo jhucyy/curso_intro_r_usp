@@ -1,0 +1,30 @@
+---
+title: "Exercício_aula_4"
+author: "Juciane Pereira"
+date: '2022-08-11'
+output: html_document
+---
+
+#### Primeira leva de exercícios referentes a aula 4, que reúne exercícios de simplificação de operações estatísticas, com funções como summarize e group_by.
+
+
+```{r, include=FALSE}
+library(tidyverse)
+library(nycflights13)
+```
+
+
+
+
+1. Calcule a duração (air_time) média por companhia aérea (carrier).
+
+
+```{r, echo=FALSE, message=FALSE}
+flights %>% 
+  group_by(carrier) %>% 
+  summarize(mean_air_time = mean(air_time, na.rm = T))
+```
+
+
+
+
