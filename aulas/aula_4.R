@@ -55,7 +55,79 @@ flights %>%
 
 
 
-A distância média dos voos é `r mean_distance`
+# Retirando os NAS:
+
+flights %>% 
+  summarize(dep_delay = mean(dep_delay, na.rm = T))
+
+
+# argumento na.rm = T retira os NAS dos cálculos, como já bem atestado no R
+# os NA's (dados indisponíveis ou ausentes) são "contagiosos" de modo que 
+# contaminam o resultado sempre como NA, quando presentes. 
+
+
+
+# Criando uma função ------------------------------------------------------
+
+
+mult_ao_quadr <- function(x){
+  calculo <- x ^ 2
+  
+  return(calculo)
+}
+
+mult_ao_quadr(5)
+
+# para a função é necessário, primeiro, nomeiar a função, depois estabelecer
+# os argumentos padrão, depois realizar a operação e plotar o resultado 
+# da operação. 
+
+
+
+# Função 2 ----------------------------------------------------------------
+
+# esta função irá se chamar mais 2, pois soma sempre mais dois números
+# na variável:
+
+
+mais_dois <- function(x){
+  calculo <- x + 2
+  return(calculo)
+}
+
+
+mais_dois(5)
+
+
+
+# group_by ----------------------------------------------------------------
+
+# o argumento group_by agrupa um conjunto  de dados de um mesmo tipo na
+# tabela, isto facilita para realizar as operações estatísticas.
+
+
+# O group_by é mais útil quando o utilizamos combinado com outras funções:
+
+# operação: calcular a distância média dos voos de origem:
+
+
+flights %>% 
+  group_by(origin) %>% 
+  summarize(mean_distance = mean(distance, na.rm = T))
+
+
+# voos mais atrasados dos aeroportos de origem:
+
+flights %>% 
+  group_by(origin) %>% 
+  top_n(1, dep_delay)
+
+
+
+
+
+
+
 
 
 
