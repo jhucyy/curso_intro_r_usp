@@ -25,6 +25,16 @@ flights %>%
   summarize(mean_air_time = mean(air_time, na.rm = T))
 ```
 
+2.Calcule a duração (air_time) média por companhia aérea (carrier) e mês (month).
+
+
+```{r, echo=FALSE, message=FALSE}
+flights %>% 
+  group_by(carrier, month) %>% 
+  summarize(mean_air_time = mean(air_time, na.rm = T))
+
+```
+
 
 
 
