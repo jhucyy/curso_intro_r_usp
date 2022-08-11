@@ -41,7 +41,7 @@ flights %>%
 delay <- flights %>% 
   group_by(origin) %>% 
   summarize(mean_delay = mean(dep_delay, na.rm = T)) %>% 
-  top_n(1, mean_delay)
+  arrange(-mean_delay)
 
 mean_delay <- delay %>% pull(mean_delay)
 delay
@@ -49,6 +49,34 @@ delay
 ```
 
 R = o aeroporto que tem o pior atraso é EWR `r mean_delay`
+
+
+4. Qual companhia aérea (carrier) tem o pior registro de atrasos (dep_delay) na média no aeroporto JFK?
+
+
+```{r, echo=FALSE, message=FALSE}
+flights %>% 
+ filter(origin == "JFK") %>% 
+  group_by(carrier) %>% 
+  summarize(media_delay = mean(dep_delay, na.rm = T)) %>% 
+  arrange(-media_delay)
+
+
+
+```
+
+
+
+5. Você odeia atrasos. Qual é o pior mês para viajar do aeroporto JFK?
+
+```{r, echo=FALSE, message=FALSE}
+flights %>% 
+  filter(origin == "JFK") %>% 
+  group_by(month) %>% 
+  summarize(media_delay = mean(dep_delay, na.rm = T)) %>% 
+  arrange(-media_delay)
+
+```
 
 
 
