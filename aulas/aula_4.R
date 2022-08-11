@@ -7,10 +7,10 @@
 # esta função colapsa toda uma cadeia de números em um único número.
 
 
-# Ex: ---------------------------------------------------------------------
 
 library(tidyverse)
 library(nycflights13)
+# Ex: ---------------------------------------------------------------------
 
 flights %>% 
   summarize(media_distance = mean(distance))
@@ -46,11 +46,16 @@ flights %>%
 
 
 
+# Ex, várias estatísticas em um mesmo código:
+
+flights %>% 
+  summarize(mean_distance = mean(distance),
+            mediana_distance = median(distance),
+            sd_distance = sd(distance))
 
 
 
-
-
+A distância média dos voos é `r mean_distance`
 
 
 
