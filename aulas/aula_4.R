@@ -123,7 +123,10 @@ flights %>%
   top_n(1, dep_delay)
 
 
+# parei aqui
 
+# Número de observações por Grupo (tally)
+# https://jonnyphillips.github.io/Ciencia_de_Dados/Estatisticas_Resumidas.html
 
 
 
