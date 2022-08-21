@@ -61,4 +61,57 @@ flights %>%
 
 
 
+# Tabelas interativas -----------------------------------------------------
+
+# a função datatable permite formatações interativas de forma mais complexa
+#mas só funciona com o relatório printado em html.
+
+# A função datatable faz parte do pacote DT:
+
+install.packages("DT")
+library(DT)
+
+
+flights %>% 
+  sample_n(100) %>% 
+  mutate(velocidade = distance/air_time) %>% 
+  select(day, month, origin, dest, carrier) %>% 
+  datatable()
+
+
+# formatação mais complexa:
+
+flights %>% 
+  sample_n(100) %>% 
+  select(day, month, origin, dest, carrier) %>% 
+  datatable(colnames = c("Dia", "Mês", "Origem", "Destino", "Companhia aérea"),
+            caption = "Tabela aleatória", filter = 'top')
+
+
+
+# filter adiciona um filtro para pesquisa na tabela. 
+
+
+
+
+
+flights %>% 
+  sample_n(100) %>%
+  mutate(velocidade=distance/air_time) %>%
+  select(month, day, dep_time, carrier, flight, origin, dest, velocidade) %>%
+  datatable(colnames=c("Mês","Dia","Hora de Partida","Companhia Aérea","Voo","Origem","Destino","Velocidade"), 
+            caption="Tabela de 100 voos aleatórios",
+            filter='top') %>%
+  formatRound("velocidade",1) %>%
+  formatStyle('velocidade',
+              backgroundColor = styleInterval(7, c('white', 'orange'))
+  )
+
+
+
+
+
+
+
+
  
