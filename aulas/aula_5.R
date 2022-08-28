@@ -110,6 +110,9 @@ flights %>%
 
 
 
+# Mudando a unidade de observação -----------------------------------------
+
+
 
 
 

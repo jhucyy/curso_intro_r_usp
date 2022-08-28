@@ -1,0 +1,47 @@
+---
+title: "Exercícios 5.2 virando tabelas"
+author: "Juciane Pereira"
+date: '2022-08-28'
+output: html_document
+---
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(DT)
+library(nycflights13)
+```
+
+
+1. Use pivot_longer para virar a tabela flights mais longa, para que cada voo tem duas observações - uma para a hora de partida (dep_time) e uma outra para a hora de chegada (arr_time).
+
+
+```{r, message=FALSE, echo=FALSE, error=FALSE}
+tabela_1 <- flights %>% 
+pivot_longer(cols = c(dep_time, arr_time), names_to = "Direcao",
+             values_to = "Hora")
+
+tabela_1
+```
+
+2. Usando o seu resultado de questão 1, gere uma tabela estática de 10 linhas selecionadas aleatoriamente por R, mostrando as variáveis carrier, flight, origin, dest e as colunas novas que você gerou na questão 1.
+
+
+```{r, echo=FALSE, message=FALSE, error=FALSE}
+tabela_1 %>% 
+  sample_n(10) %>% 
+  select(carrier, flight, origin, dest, Direcao, Hora) %>% 
+  kable()
+```
+
+
+3. Usando o seu resultado de questão 1, use pivot_wider para recuperar o banco de dados original de flights. Verifique que os números de colunas e linhas são íguais
+
+
+```{r, echo=FALSE, message=FALSE, error=FALSE}
+tabela_1 %>% 
+  pivot_wider(names_from = Direcao, values_from = Hora)
+```
+
+
+
+
