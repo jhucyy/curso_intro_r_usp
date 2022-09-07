@@ -143,3 +143,50 @@ ggplot() +
 
 ggplot(data = mpg, aes(x = displ, y = hwy))+
   geom_point(aes(color = drv)) + geom_smooth(se = FALSE, show.legend = FALSE)
+
+
+
+# Transformações estatísticas ---------------------------------------------
+
+ggplot(diamonds)+
+  geom_bar(aes(x = cut))
+
+
+# position identity:
+ggplot(diamonds)+
+  geom_bar(aes(x = cut, fill = clarity), position = "identity")
+
+
+ggplot(diamonds)+
+  geom_bar(aes(cut, color = clarity), position = "identity", fill = NA)
+
+
+# position fill:
+# modela todas as barras para a mesma altura, facilita a comparação
+# entre proporções:
+
+ggplot(diamonds)+
+  geom_bar(aes(cut, fill = clarity), position = "fill")
+
+
+# position dodge, coloca valores sobrepostos um do lado do outro,
+# facilita a comparação de valores individuais:
+
+ggplot(diamonds)+
+  geom_bar(aes(cut, fill = clarity), position = "dodge")
+
+
+# Para scatterplots, position jitter, adiciona um ruído aleatório entre os 
+# pontos que proporciona uma melhor visualização panorâmica dos dados e 
+# evita sobreposição:
+
+ggplot(data = mpg)+
+  geom_point(aes(x = displ, y = hwy), position = "jitter")
+
+
+
+
+
+
+
+
