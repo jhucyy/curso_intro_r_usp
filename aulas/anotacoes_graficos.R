@@ -185,6 +185,12 @@ ggplot(data = mpg)+
 
 
 
+# Parei aqui --------------------------------------------------------------
+
+# https://ggplot2-book.org/index.html
+# capítulos 1 a 5
+
+
 
 
 
